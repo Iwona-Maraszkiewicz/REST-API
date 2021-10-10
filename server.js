@@ -3,15 +3,16 @@ const db = require('./db');
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 const seatsRoutes = require('./routes/seats.routes');
+const cors = require('cors');
 
 const app = express();
-
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/api', testimonialsRoutes);
-app.use('/api', concertsRoutes);
-app.use('/api', seatsRoutes);
+app.use('/api/', testimonialsRoutes);
+app.use('/api/', concertsRoutes);
+app.use('/api/', seatsRoutes);
 
 app.use((req, res) => {
     res.status(404).send({ message: 'Not found...' });

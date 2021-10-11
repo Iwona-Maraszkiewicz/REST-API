@@ -5,6 +5,9 @@
   "repository": "https://github.com/Iwona-Maraszkiewicz/REST-API.git",
   "author": "<ikonopinska@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "cd client && yarn install && yarn build"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "4.17.1",

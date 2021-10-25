@@ -30,7 +30,7 @@ app.use((req, res) => {
 });
 
 
-mongoose.connect('mongodb://localhost:27017/NewWaveDB', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://Iwona:Iwona1@cluster0.7og7i.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true });
 const db = mongoose.connection;
 db.once('open', () => {
   console.log('Connected to the database');

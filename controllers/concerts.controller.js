@@ -1,4 +1,6 @@
 const Concert = require('../models/concerts.model');
+const Seat = require('../models/seats.model');
+
 
 exports.getAll = async (req, res) => {
     try {
@@ -21,6 +23,21 @@ exports.getById = async (req, res) => {
     }
 
   };
+
+exports.getTicketsOfConcerts = async(req,res) => {
+    try {
+      const concert = await Concert.findById(req.params.id);
+      const tickets = await Seat.find({day: concert.day});
+      const freeTickets = 50 - tickets.length;
+      if(!concert) res.status(404).json({ message: 'Not found' });
+      else res.json({concert: concert, freeTickets: freeTickets});
+    }
+    catch(err) {
+      res.status(500).json({ message: err });
+    }
+  };
+  
+
 
 exports.post = async (req, res) => {
 

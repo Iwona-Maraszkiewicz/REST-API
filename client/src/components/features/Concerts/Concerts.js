@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Concert from './../Concert/Concert';
+import Concert from './../Concert/ConcertContainer';
 
 const Concerts = ({ concerts }) => (
   <section>
-    {concerts.map(con => <Concert key={con.id} {...con} />)}
+    {concerts.map(con => <Concert key={con._id} {...con} />)}
   </section>
 )
 

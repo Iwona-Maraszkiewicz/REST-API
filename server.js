@@ -8,12 +8,14 @@ const path = require('path');
 const app = express();
 const socket = require('socket.io');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 
 app.use((req, res, next) => {
   req.io = io;
   next();
 });
 app.use(cors());
+app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/client/build')));
@@ -33,7 +35,7 @@ app.use((req, res) => {
 //mongoose.connect('mongodb+srv://Iwona:Iwona1@cluster0.7og7i.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true });
 const NODE_ENV = process.env.NODE_ENV;
 let dbUri = '';
-if(NODE_ENV === 'production') dbUri = 'mongodb+srv://Iwona:Iwona1@cluster0.7og7i.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
+if(NODE_ENV === 'production') dbUri = 'mongodb+srv://${process.env.login}:${process.env.password}@cluster0.7og7i.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
 else if(NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest';
 else dbUri = 'mongodb://localhost:27017/NewWaveDB';
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });

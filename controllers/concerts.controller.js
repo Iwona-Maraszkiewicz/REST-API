@@ -1,5 +1,6 @@
 const Concert = require('../models/concerts.model');
 const Seat = require('../models/seats.model');
+const sanitize = require('mongo-sanitize');
 
 
 exports.getAll = async (req, res) => {
@@ -12,7 +13,6 @@ exports.getAll = async (req, res) => {
   };
 
 exports.getById = async (req, res) => {
-
     try {
       const dep = await Concert.findById(req.params.id);
       if(!dep) res.status(404).json({ message: 'Not found' });
@@ -38,12 +38,10 @@ exports.getTicketsOfConcerts = async(req,res) => {
   };
   
 
-
 exports.post = async (req, res) => {
-
     try {
-
-      const { performer, genre, price, day, image } = req.body;
+      const cleanData = sanitize(req.body);
+      const { performer, genre, price, day, image } = cleanData;
       const newConcert = new Concert({ performer: performer, genre: genre, price: price, day: day, image: image });
       await newConcert.save();
       res.json({ message: 'OK' });
@@ -56,7 +54,6 @@ exports.post = async (req, res) => {
 
 exports.put = async (req, res) => {
     const { performer, genre, price, day, image } = req.body;
-
     try {
       const dep = await Concert.findById(req.params.id);
       if(dep) {
@@ -68,11 +65,9 @@ exports.put = async (req, res) => {
     catch(err) {
       res.status(500).json({ message: err });
     }
-
   };
 
 exports.delete = async (req, res) => {
-
     try {
       const dep = await Concert.findById(req.params.id);
       if(dep) {

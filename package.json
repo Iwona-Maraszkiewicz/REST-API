@@ -22,7 +22,7 @@
     "nodemon": "^2.0.13",
     "onchange": "6.1.0",
     "path": "^0.12.7",
-    "snyk": "1.235.0",
+    "snyk": "1.429.0",
     "socket.io": "4.0.1",
     "socket.io-client": "4.0.1",
     "uuid": "^8.3.2"
